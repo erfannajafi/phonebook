@@ -12,7 +12,7 @@ class Route{
     }
 
     public static function get($uri , $action = null){
-        self::add('get' , $uri , $action = null);
+        self::add('get' , $uri , $action);
     }
     public static function post($uri , $action = null){
         self::add('post' , $uri , $action);

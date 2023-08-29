@@ -9,7 +9,9 @@ function asset_url($route){
 }
 
 
-function random_element($arr){
-    shuffle($arr);
-    return array_pop($arr);
+function view($path){ 
+    $path = str_replace('.' , '/' , $path);
+    $view_full_path = BASEPATH . "views/$path.php";
+    include_once $view_full_path;
+
 }

@@ -2,15 +2,21 @@
 
 use App\Core\Routing\Route;
 
-Route::add('get' , '/' , function(){
+Route::get('/','HomeController@index');
+
+Route::get('/archive','ArchiveController@index');
+
+Route::add([ 'get' , 'post' , 'put' ] , '/a' , function(){
     echo "welcome";
 });
 
 Route::get('/null' );
 
-Route::post('/saveForm' , function(){
+Route::get('/b' , function(){
     echo "save ok";
 });
 
-Route::get('/test' , 'Controller@Method');
+Route::put('/c' , ['Controller','Method']);
+
+Route::put('/d' , 'Controller@Method');
 
