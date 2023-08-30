@@ -1,6 +1,8 @@
 <?php
 
 use App\Core\Routing\Route;
+use App\Middleware\BlockFirefox;
+use App\Middleware\BlockIE;
 
 Route::get('/','HomeController@index');
 
@@ -23,6 +25,5 @@ Route::put('/c' , ['Controller','Method']);
 
 Route::put('/d' , 'Controller@Method');
 
-Route::get('/todo/list','TodoController@list');
+Route::get('/todo/list','TodoController@list',[BlockFirefox::class , BlockIE::class]);
 Route::get('/todo/add','TodoController@add');
-
