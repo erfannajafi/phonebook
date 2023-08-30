@@ -14,4 +14,3 @@ class Asset{
     
 }
 
-$request->redirect('test');

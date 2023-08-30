@@ -84,27 +84,22 @@ class Router{
 
 
     public function run(){
+        # 404 : uri not found
+        if(is_null($this->current_route))
+        {
+            $this->dispatch404();
+        }
+
         # 405 : invalid request method
-        if ( !(in_array($this->request->getMethod() , $this->current_route['methods'])) )
+        else if ( !(in_array($this->request->getMethod() , $this->current_route['methods'])) )
         {
             $this->dispatch405();
         }
         
 
-        # 404 : uri not found
-        else if(is_null($this->current_route))
-        {
-            $this->dispatch404();
-        }
-
-
 
         $this->dispatch($this->current_route);
         
-
-        
-
-
 
 
     }
