@@ -2,6 +2,7 @@
 namespace App\Core\Routing;
 
 use App\Core\Request;
+use App\Middleware\GlobalMiddleware;
 use Exception;
 
 class Router{
@@ -18,11 +19,18 @@ class Router{
         //var_dump($this->current_route);
 
         #run middleware
+        $this->run_global_middleware();
         $this->run_route_middleware();
+    }
+
+    private function run_global_middleware(){
+        $global_middleware = new GlobalMiddleware();
+        $global_middleware->handle();
     }
 
     private function run_route_middleware(){
         $middleware = $this->current_route['middleware'];
+        //var_dump($middleware);
         foreach ($middleware as $middleware_class) {
             $middleware_object = new $middleware_class;
             $middleware_object->handle();
@@ -32,11 +40,28 @@ class Router{
     public function findRoute(Request $request){
         //echo  $request->getMethod() . " " . $request->getUri();
         foreach($this->routes as $route){
-            if ( $request->getUri() == $route['uri'] ) {
+            if ( $this->regex_matched($route)) {
                 return $route;
             }
         }
         return null;
+    }
+
+
+    public function regex_matched($route){
+        global $request;
+        $pattern = "/^".str_replace(['/','{','}'],['\/','(?<','>[-%\w]+)'],$route['uri'])."$/";
+        $result = preg_match($pattern , $this->request->getUri() , $matches);
+        if(!$result){
+            return false;
+        }
+        foreach($matches as $key => $value){
+            if(!is_int($key)){
+                $request->add_route_param($key , $value);
+            }
+        }
+        return true;
+
     }
 
 

@@ -20,6 +20,23 @@ $router->run();
 
 
 
+//$route_pattern = '/^\/post\/(?<slug>[-%\w]+)$/';
+// $route = '/post/{slug}';
+// $pattern = "/^".str_replace(['/','{','}'],['\/','(?<','>[-%\w]+)'],$route)."$/";
+// nice_dump($pattern);
+
+
+// $uri1 = '/post/what-is-php';
+// $uri2 = '/post/why-is-php';
+// $uri3 = '/product/why-is-php';
+
+// $result = preg_match($route_pattern , $uri1 , $matches);
+// var_dump($matches);
+
+
+
+
+
 
 
 
