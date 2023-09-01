@@ -1,12 +1,18 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\User;
+
 class PostController{
     
 
     public function single()
     {
         global $request;
+        $author_id = 2;
+        $userModel = new User();
+        $author = $userModel->find($author_id);
+        var_dump($author);
         $slug = $request->get_route_param('slug');
         echo "slug: $slug <br>";
     }

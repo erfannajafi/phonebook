@@ -46,18 +46,18 @@ class JsonBaseModel extends BaseModel{
         }
         return null;
     }
-    public function get(array $columns , array $where) : array{
+    public function get(array $columns , array $where = []) : array{
         return [];
     }
     public function getAll() :array{
         return $this->read_table();
     }
 
-    public function update(array $data , array $where) : int{
+    public function update(array $data , array $where = []) : int{
         return 1;
     }
 
-    public function delete(array $where) : int{
+    public function delete(array $where = []) : int{
         return 1;
     }
 
