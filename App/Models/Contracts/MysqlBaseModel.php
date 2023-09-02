@@ -6,7 +6,7 @@ use Medoo\Medoo;
 
 class MysqlBaseModel extends BaseModel{
 
-    public function __construct(){
+    public function __construct($id = null){
 
         try{
             // $this->connection = new \PDO("mysql:dbname={$_ENV['DB_NAME']};host={$_ENV['DB_HOST']}",$_ENV['DB_USER'],$_ENV['DB_PASS']);
@@ -48,6 +48,24 @@ class MysqlBaseModel extends BaseModel{
             echo "connection failed: " . $e->getMessage();
         }
 
+
+        if(!is_null($id)){
+            return $this->find($id);
+        }
+        
+
+    }
+
+
+
+    public function remove(): int{
+        $record_id = $this->{$this->primaryKey}; 
+        return $this->delete([$this->primaryKey => $record_id]);
+    }
+
+    public function save(): int{
+        $record_id = $this->{$this->primaryKey}; 
+        return $this->update($this->attributes , [$this->primaryKey => $record_id]);
     }
 
 
@@ -61,11 +79,14 @@ class MysqlBaseModel extends BaseModel{
 
     public function find($id) : object{
         $record = $this->connection->get($this->table, '*' , [$this->primaryKey => $id]);
+        if(is_null($record)){
+            return (object)null;
+        }
         foreach ($record as $col => $val) {
             $this->attributes[$col] = $val;
         }
         //var_dump($this->attributes);
-        return (object)$record;
+        return $this;
     }
 
     public function get(array $columns , array $where = []) : array{

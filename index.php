@@ -56,16 +56,16 @@ $userModel = new User();
 // var_dump($result);
 
 
-// $productModel = new Product();
+$productModel = new Product();
 
-// $product_data = [
-//     'title' => "title",
-//     'price' => rand(1,100) * 1000
-// ];
+$product_data = [
+    'title' => "title",
+    'price' => rand(1,100) * 1000
+];
 
-// $result = $productModel->create($product_data);
+$result = $productModel->create($product_data);
 
-// $result = $productModel->getAll();
+$result = $productModel->getAll();
 // var_dump($result);
 
 
