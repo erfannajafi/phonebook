@@ -44,7 +44,7 @@ class MysqlBaseModel extends BaseModel{
                 ]
             ]);
 
-        } catch(Exception $e){
+        } catch(\Exception $e){
             echo "connection failed: " . $e->getMessage();
         }
 
