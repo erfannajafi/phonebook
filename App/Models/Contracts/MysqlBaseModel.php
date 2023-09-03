@@ -89,13 +89,14 @@ class MysqlBaseModel extends BaseModel{
         return $this;
     }
 
-    public function get(array $columns , array $where = []) : array{
-        return $this->connection->select($this->table , $columns , $where);
-
+    public function get($columns , array $where = []) : array{
+        $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+        $start = ($page - 1) * $this->pageSize;
+        return $this->connection->select($this->table , $columns , ['LIMIT' => [$start , $this->pageSize] ]);
     }
 
     public function getAll() :array{
-        return $this->connection->select($this->table , '*');
+        return $this->get('*');
     }
 
     public function update(array $data , array $where = []) : int{
@@ -109,12 +110,12 @@ class MysqlBaseModel extends BaseModel{
     }
 
 
-    public function count(array $where) :int
+    public function count(array $where = []) :int
     {
         return $this->connection->count($this->table , $where);
     }
 
-    public function sum( $column , array $where) :int
+    public function sum( $column , array $where = []) :int
     {
         return $this->connection->sum($this->table , $column , $where);
     }
