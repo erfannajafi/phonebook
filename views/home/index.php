@@ -47,8 +47,10 @@
 
             <div class="col-lg-4 inp">
 
-                <input onkeyup="searchFunction()" id="myInput" class="form-control mt-2" placeholder="search">
-                <span class="icon text-primary"><i class="fas fa-search"></i></span>
+                <form action="">
+                    <input onkeyup="searchFunction()" id="myInput" name="s" class="form-control mt-2" placeholder="search">
+                    <span class="icon text-primary"><i class="fas fa-search"></i></span>
+                </form>
 
                 <h5 class="mt-5">Add New Contact</h5>
 
@@ -66,7 +68,7 @@
 
 
             <div class="col-lg-8">
-
+                <h2 class="mb-3">Search result for <span class="text-warning"><?= $search_keyword; ?></span></h2>
                 <table id="myTable" class="table text-justify table-striped">
 
                     <thead class="tableh1">
@@ -123,12 +125,6 @@
                     ?>
 
                 </div>
-
-
-
-
-
-
 
 
             </div>

@@ -12,5 +12,14 @@ class GlobalMiddleware implements MiddlewareInterface{
         if(Browser::isFirefox()){
             die('firefox was blocked');
         }
+        $this->sanitizeGetParams();
+    }
+    
+
+    public function sanitizeGetParams()
+    {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = xss_clean($value);
+        }
     }
 }

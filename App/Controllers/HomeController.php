@@ -25,11 +25,23 @@ class HomeController{
         //         'email' => $faker->email()
         //         ]);
         // }
+        global $request;
+        $where = ['ORDER' => ["id" => "DESC"]];
+        $search_keyword = $request->input('s');
+        if(!is_null($search_keyword)){
+            $where['OR'] = [
+                    'name[~]' => $search_keyword,
+                    'mobile[~]' => $search_keyword,
+                    'email[~]' => $search_keyword
+            ];
+        }
 
+        $contacts = $this->contactModel->get('*', $where);
         $data = [
-            'contacts' => $this->contactModel->getAll(),
+            'contacts' => $contacts ,
             'num_contacts' => $this->contactModel->count(),
-            'pageSize' => $this->contactModel->getPageSize()
+            'pageSize' => $this->contactModel->getPageSize(),
+            'search_keyword' => $search_keyword
         ];
         view('home.index' , $data);
     }

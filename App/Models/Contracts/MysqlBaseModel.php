@@ -92,7 +92,8 @@ class MysqlBaseModel extends BaseModel{
     public function get($columns , array $where = []) : array{
         $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
         $start = ($page - 1) * $this->pageSize;
-        return $this->connection->select($this->table , $columns , ['LIMIT' => [$start , $this->pageSize] ]);
+        $where['LIMIT'] = [$start , $this->pageSize];
+        return $this->connection->select($this->table , $columns , $where );
     }
 
     public function getAll() :array{
