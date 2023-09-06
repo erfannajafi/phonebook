@@ -5,7 +5,7 @@ use App\Core\Routing\Route;
 
 Route::get('/','HomeController@index');
 
-
+Route::post('/contact/add','ContactController@add');
 
 // use App\Middleware\BlockFirefox;
 // use App\Middleware\BlockIE;

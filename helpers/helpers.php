@@ -1,6 +1,6 @@
 <?php
 
-function site_url($route){
+function site_url($route = ''){
     return $_ENV['BASE_URL'] . $route;
 }
 
@@ -17,6 +17,10 @@ function view($path , $data = []){
 
 }
 
+function view_die($path , $data = []){ 
+    view($path , $data);
+    die();
+}
 
 function strContains($str,$needle,$case_sensitive = 0)
 {
